@@ -16,6 +16,7 @@ import IconButton from "../components/IconButton";
 import Bmi from "./Bmi";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Settings from "./Settings";
 
 function CalcScreen({ navigation }) {
   return (
@@ -137,6 +138,28 @@ function App() {
       <Stack.Screen
         name="Bmi"
         component={Bmi}
+        options={{
+          headerTitle: () => (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <StatusBar style="light" />
+              <TopBar />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: "rgb(30, 30, 32)", // Set the background color of the header
+          },
+          headerTintColor: "white", // Set the color of the back button and title text
+        }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
         options={{
           headerTitle: () => (
             <View

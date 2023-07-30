@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   TextInput,
   FlatList,
   Image,
+  Switch
 } from "react-native";
 import TopBar from "../components/TopBar";
 
@@ -35,17 +36,26 @@ export default function Main() {
       </View>
     </SafeAreaView>
   );
-
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, isDarkMode ? styles.darkMode : styles.lightMode]}>
       <TopBar />
+      <Switch
+        value={isDarkMode}
+        onValueChange={toggleDarkMode}
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
+      />
       <FlatList
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.title}
         contentContainerStyle={styles.listContainer}
       />
-      <StatusBar style="light" />
+       <StatusBar style={isDarkMode ? "light" : "dark"} />
     </SafeAreaView>
   );
 }
@@ -68,6 +78,12 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     alignItems: "center",
+  },
+  lightMode: {
+    backgroundColor: "white",
+  },
+  darkMode: {
+    backgroundColor: "rgb(30, 30, 32)",
   },
   rectangle: {
     width: 350,

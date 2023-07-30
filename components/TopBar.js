@@ -5,9 +5,10 @@ import {
   Image,
   StyleSheet,
   useWindowDimensions,
+  TouchableOpacity
 } from "react-native";
 
-function TopBar() {
+function TopBar({navigation}) {
   const windowWidth = useWindowDimensions().width;
 
   const dynamicStyles = StyleSheet.create({
@@ -50,15 +51,15 @@ function TopBar() {
       color: "white",
     },
   });
-
+  
   return (
     <View style={{ flexDirection: "row", justifyContent: "center" }}>
-      <View style={dynamicStyles.settingsView}>
+      <TouchableOpacity style={dynamicStyles.settingsView}>
         <Image
           source={require("../assets/setting.png")}
           style={dynamicStyles.settingIcon}
         />
-      </View>
+      </TouchableOpacity>
       <View style={dynamicStyles.searchContainer}>
         <Image
           source={require("../assets/search.png")}
