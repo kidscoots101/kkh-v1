@@ -19,51 +19,39 @@ export default function Crisis() {
   const [isBlurred, setIsBlurred] = useState([
     {
       id: "1",
-      title: "Fever",
+      title: "Basic Life Support(BLS)",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
+      isBlurred: true,
     },
     {
       id: "2",
-      title: "Diarrohea",
+      title: "Cardiac Arrest",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
+      isBlurred: true,
     },
     {
       id: "3",
-      title: "Fracture",
+      title: "LA Toxicity",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
+      isBlurred: true,
     },
     {
       id: "4",
-      title: "Appendicitis",
+      title: "Hyperkalemia",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
+      isBlurred: true,
     },
     {
       id: "5",
-      title: "Sore Throat",
+      title: "Malignant Hyperthermia",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
+      isBlurred: true,
     },
     {
       id: "6",
-      title: "Ligament Tear",
+      title: "Anaphylaxis",
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
-    },
-    {
-      id: "7",
-      title: "Head-Ache",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
-    },
-    {
-      id: "8",
-      title: "Concussion",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur diam est, pharetra sollicitudin dui ac, consequat ultricies est. Proin tempor sed arcu fringilla venenatis. Proin eget hendrerit lorem. Morbi maximus quam a mattis pulvinar. Mauris dignissim metus rhoncus ligula pellentesque, eu eleifend dolor convallis.",
-      isBlurred: false,
+      isBlurred: true,
     },
   ]);
   const handleToggleBlur = (itemId) => {
@@ -89,7 +77,7 @@ export default function Crisis() {
             flexDirection: "column",
             alignItems: "center",
             width: Dimensions.get("window").width - 20,
-            height: Dimensions.get("window").height - 650,
+            height: Dimensions.get("window").height - 580,
           }}
         >
           {/* <View style={styles.rectangle}>
@@ -116,11 +104,7 @@ export default function Crisis() {
               textSize={18}
             />
           </View> */}
-          <BlurView
-            style={styles.absoluteBlur}
-            blurType="light"
-            intensity={100}
-          >
+          <BlurView style={styles.absoluteBlur} blurType="light" intensity={60}>
             <View style={styles.blurTitleView}>
               <Text style={styles.blurTitle}>{item.title}</Text>
               <TouchableOpacity onPress={() => handleToggleBlur(item.id)}>
@@ -166,10 +150,16 @@ export default function Crisis() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <View style={{ marginTop: 20 }} />
-      <TextInputButton title="Weight" unit="kg" />
+      <TextInputButton
+        title="Weight"
+        unit="kg"
+        backgroundColor={"#313135"}
+        width={Dimensions.get("window").width * 0.36923077}
+        height={Dimensions.get("window").height * 0.06635071}
+      />
       <View style={{ marginTop: 20 }} />
       <TopBar />
-
+      <View style={{ marginTop: 15 }} />
       <FlatList
         data={isBlurred}
         renderItem={renderItem}
@@ -218,12 +208,12 @@ const styles = StyleSheet.create({
   title: {
     paddingTop: 5,
     color: "white",
-    fontSize: 26,
+    fontSize: 20,
     fontWeight: "700",
   },
   blurTitle: {
     color: "white",
-    fontSize: 35,
+    fontSize: 20,
     fontWeight: "600",
     marginRight: 10,
   },
@@ -257,7 +247,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    borderRadius: 15,
+    borderRadius: 12.5,
     borderWidth: 5,
     borderColor: "#6D6D74",
     flexDirection: "row",

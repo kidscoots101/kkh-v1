@@ -1,0 +1,40 @@
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+var _excluded = ["color", "size"];
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+import React, { forwardRef, useContext } from 'react';
+import PropTypes from 'prop-types';
+import IconContext from '../context';
+var BookOpenCover = /*#__PURE__*/forwardRef(function (_ref, ref) {
+  var _ref2, _ref3;
+  var color = _ref.color,
+    size = _ref.size,
+    rest = _objectWithoutProperties(_ref, _excluded);
+  var iconContext = useContext(IconContext);
+  var mergedProps = _objectSpread({
+    color: (_ref2 = color !== null && color !== void 0 ? color : iconContext.color) !== null && _ref2 !== void 0 ? _ref2 : 'currentColor',
+    size: (_ref3 = size !== null && size !== void 0 ? size : iconContext.size) !== null && _ref3 !== void 0 ? _ref3 : '20px'
+  }, rest);
+  return /*#__PURE__*/React.createElement("svg", _extends({
+    ref: ref,
+    xmlns: "http://www.w3.org/2000/svg",
+    width: mergedProps.size,
+    height: mergedProps.size,
+    viewBox: "0 0 24 24",
+    fill: mergedProps.color
+  }, mergedProps), /*#__PURE__*/React.createElement("path", {
+    d: "M24 3v14.04a5.023 5.023 0 0 1-3.626 4.808l-6.726 1.921a5.994 5.994 0 0 1-3.296 0l-6.726-1.921A5.021 5.021 0 0 1 0 17.04V4c.006-1.308 1.994-1.307 2 0v13.04c0 1.333.895 2.519 2.176 2.885l6.726 1.921a4.005 4.005 0 0 0 2.198 0l6.725-1.921a3.013 3.013 0 0 0 2.176-2.885V3c.006-1.308 1.994-1.307 2 0ZM4 14.937V4c0-1.267.58-2.431 1.591-3.193A3.967 3.967 0 0 1 9.099.154l1.726.493c.446.127.845.354 1.176.651.331-.297.73-.524 1.176-.651l1.725-.493C17.363-.624 20.073 1.422 20.001 4v10.937a4.017 4.017 0 0 1-2.901 3.846l-3.451.986a5.994 5.994 0 0 1-3.296 0l-3.451-.986a4.017 4.017 0 0 1-2.901-3.846Zm9 2.936 3.549-1.013A2.01 2.01 0 0 0 18 14.937V4c0-.633-.29-1.215-.795-1.597a1.987 1.987 0 0 0-1.754-.327l-1.725.493A1.004 1.004 0 0 0 13 3.53v14.342Zm-7-2.936a2.01 2.01 0 0 0 1.451 1.923L11 17.873V3.531c0-.444-.298-.839-.725-.961l-1.726-.493a1.984 1.984 0 0 0-1.754.327A1.984 1.984 0 0 0 6 4.001v10.936Z"
+  }));
+});
+BookOpenCover.propTypes = {
+  color: PropTypes.string,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
+BookOpenCover.displayName = 'BookOpenCover';
+export default BookOpenCover;

@@ -6,6 +6,7 @@ import Main from "./screens/Main";
 import { NavigationContainer } from "@react-navigation/native";
 import Crisis from "./screens/Crisis";
 import { Image, Dimensions, PixelRatio } from "react-native";
+import { DarkModeProvider } from "./components/DarkModeContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,10 +71,12 @@ function MyTabs() {
 export default function App() {
   return (
     <>
+    <DarkModeProvider>
       <StatusBar style="light" />
       <NavigationContainer>
         <MyTabs />
       </NavigationContainer>
+      </DarkModeProvider>
     </>
   );
 }
