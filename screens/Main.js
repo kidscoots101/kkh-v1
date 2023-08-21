@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar, 
-  SafeAreaView
+  SafeAreaView,
+  useWindowDimensions,
+  Image,
+  TextInput
 } from "react-native";
-import TopBar from "../components/TopBar";
 
 
 const data = [
@@ -164,9 +166,11 @@ const data = [
 ];
 
 
-const BookmarkSubtitlesFlatList = () => {
+const BookmarkSubtitlesFlatList = ({navigation}) => {
   const [items, setItems] = useState(data);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState(data);
 
   const toggleSubtitleBookmark = (itemId, subtitleId) => {
     setItems((prevItems) =>
@@ -184,22 +188,29 @@ const BookmarkSubtitlesFlatList = () => {
       )
     );
   };
+  const [isBookmarked, setIsBookMarked] = useState(false)
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
   };
+  const onPressBookmark = () => {
+    setIsBookMarked(true)
+  }
 
-  const SubtitleItem = ({ subtitle, onPressBookmark }) => (
+  const SubtitleItem = ({ subtitle }) => (
     <View style={styles.subtitleContainer}>
-      <Text style={styles.subtitleText} numberOfLines={1}>
+      <TouchableOpacity style={styles.subtitleText} numberOfLines={1}>
+        <Text style={{fontSize: 19}}>
         {subtitle.text}
-      </Text>
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.bookmarkButton}
         onPress={onPressBookmark}
       >
         <Text style={styles.bookmarkButtonText}>
           {subtitle.isBookmarked ? "Unbookmark" : "Bookmark"}
+          {/* {">"} */}
         </Text>
       </TouchableOpacity>
     </View>
@@ -220,6 +231,51 @@ const BookmarkSubtitlesFlatList = () => {
     </View>
   );
 
+  const windowWidth = useWindowDimensions().width;
+
+
+  const dynamicStyles = StyleSheet.create({
+    settingsView: {
+      height: windowWidth * 0.1,
+      width: windowWidth * 0.1,
+      borderRadius: (windowWidth * 0.1) / 2,
+      overflow: "hidden",
+      backgroundColor: "rgb(49, 49, 53)",
+      justifyContent: "center",
+      alignItems: "center",
+      // left: 5,
+    },
+    settingIcon: {
+      height: windowWidth * 0.055,
+      width: windowWidth * 0.055,
+      tintColor: "#EAEAEB",
+    },
+    searchContainer: {
+      backgroundColor: "rgb(49, 49, 53)",
+      borderRadius: windowWidth * 0.05,
+      marginHorizontal: 7.5,
+      width: windowWidth * 0.85,
+      height: windowWidth * 0.1,
+      flexDirection: "row",
+      overflow: "hidden",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      paddingHorizontal: windowWidth * 0.035,
+    },
+    searchIcon: {
+      height: windowWidth * 0.04,
+      width: windowWidth * 0.04,
+      tintColor: "#818188",
+    },
+    searchInput: {
+      paddingHorizontal: windowWidth * 0.03,
+      fontWeight: "600",
+      fontSize: windowWidth * 0.045,
+      color: "white",
+    },
+  });
+  
+
   return (
     
     <SafeAreaView
@@ -228,9 +284,41 @@ const BookmarkSubtitlesFlatList = () => {
         isDarkMode ? styles.darkMode : styles.lightMode,
       ]}
     >
-      <TopBar />
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+      <TouchableOpacity style={dynamicStyles.settingsView} onPress={() => navigation.navigate("Settings")}>
+        <Image
+          source={require("../assets/setting.png")}
+          style={dynamicStyles.settingIcon}
+        />
+      </TouchableOpacity>
+      <View style={dynamicStyles.searchContainer}>
+        <Image
+          source={require("../assets/search.png")}
+          style={dynamicStyles.searchIcon}
+        />
+        <TextInput
+          style={dynamicStyles.searchInput}
+          placeholder="Search..."
+          placeholderTextColor="#818188"
+          value={searchQuery}
+          onChangeText={text => {
+            const lowercaseText = text.toLowerCase(); 
+            setSearchQuery(text);
+            const filtered = data.filter(item => {
+              const lowercaseTitle = item.title.toLowerCase();
+              const subtitleMatches = item.subtitles.some(subtitle =>
+                subtitle.text.toLowerCase().includes(lowercaseText)
+              );
+              return lowercaseTitle.includes(lowercaseText) || subtitleMatches;
+            });
+            setFilteredData(filtered);
+            }}
+          />
+      </View>
+    </View>
       <FlatList
-        data={data}
+        data={filteredData}
+        style={{flex: 1}}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.flatList}
@@ -263,7 +351,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 8,
     color: "black",

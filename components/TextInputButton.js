@@ -20,7 +20,7 @@ function TextInputButton({ title, unit }) {
             placeholderTextColor="#818188"
             keyboardType="numeric"
             returnKeyType="done" 
-            onSubmitEditing={handleTextInputBlur} 
+            onSubmitEditing={handleTextInputBlur}
           />
           <Text style={styles.unit}>{unit}</Text>
         </View>
