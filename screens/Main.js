@@ -11,6 +11,7 @@ import {
   Image,
   TextInput
 } from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 const data = [
@@ -172,6 +173,7 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(data);
 
+
   const toggleSubtitleBookmark = (itemId, subtitleId) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -188,48 +190,24 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
       )
     );
   };
-  const [isBookmarked, setIsBookMarked] = useState(false)
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
-  const onPressBookmark = () => {
-    setIsBookMarked(true)
-  }
-
-  const SubtitleItem = ({ subtitle }) => (
-    <View style={styles.subtitleContainer}>
-      <TouchableOpacity style={styles.subtitleText} numberOfLines={1}>
-        <Text style={{fontSize: 19}}>
-        {subtitle.text}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.bookmarkButton}
-        onPress={onPressBookmark}
-      >
-        <Text style={styles.bookmarkButtonText}>
-          {subtitle.isBookmarked ? "Unbookmark" : "Bookmark"}
-          {/* {">"} */}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-      </View>
+      <Text style={styles.title}>{item.title}</Text>
       {item.subtitles.map((subtitle) => (
-        <SubtitleItem
-          key={subtitle.id}
-          subtitle={subtitle}
-          onPressBookmark={() => toggleSubtitleBookmark(item.id, subtitle.id)}
-        />
+        <View key={subtitle.id} style={styles.subtitleContainer}>
+          <Text style={styles.subtitleText}>{subtitle.text}</Text>
+          <TouchableOpacity
+            style={styles.bookmarkButton}
+            onPress={() => toggleSubtitleBookmark(item.id, subtitle.id)}
+          >
+            <Ionicons name={subtitle.isBookmarked ? 'bookmark' : 'bookmark-outline'} size={20} />
+          </TouchableOpacity>
+        </View>
       ))}
     </View>
   );
+
 
   const windowWidth = useWindowDimensions().width;
 
@@ -313,12 +291,12 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
               return lowercaseTitle.includes(lowercaseText) || subtitleMatches;
             });
             setFilteredData(filtered);
-            }}
+          }}
           />
       </View>
     </View>
       <FlatList
-        data={filteredData}
+        data={items}
         style={{flex: 1, top: 10}}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -352,7 +330,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: "bold",
     marginBottom: 8,
     color: "black",
@@ -369,7 +347,7 @@ const styles = StyleSheet.create({
   },
   bookmarkButton: {
     padding: 6,
-    backgroundColor: "#3498db",
+    // backgroundColor: "#3498db",
     borderRadius: 4,
   },
   bookmarkButtonText: {
