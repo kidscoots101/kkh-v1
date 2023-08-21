@@ -189,7 +189,23 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
           : item
       )
     );
+
+    setFilteredData((prevFilteredData) =>
+      prevFilteredData.map((item) =>
+        item.id === itemId
+          ? {
+              ...item,
+              subtitles: item.subtitles.map((subtitle) =>
+                subtitle.id === subtitleId
+                  ? { ...subtitle, isBookmarked: !subtitle.isBookmarked }
+                  : subtitle
+              ),
+            }
+          : item
+      )
+    );
   };
+
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -296,7 +312,7 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
       </View>
     </View>
       <FlatList
-        data={items}
+        data={filteredData}
         style={{flex: 1, top: 10}}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
