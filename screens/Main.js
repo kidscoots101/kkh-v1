@@ -284,6 +284,7 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
         isDarkMode ? styles.darkMode : styles.lightMode,
       ]}
     >
+      <Text style={{fontSize: 40, fontWeight: 'bold', color: "white", padding: 20}}>References</Text>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
       <TouchableOpacity style={dynamicStyles.settingsView} onPress={() => navigation.navigate("Settings")}>
         <Image
@@ -318,7 +319,7 @@ const BookmarkSubtitlesFlatList = ({navigation}) => {
     </View>
       <FlatList
         data={filteredData}
-        style={{flex: 1}}
+        style={{flex: 1, top: 10}}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.flatList}

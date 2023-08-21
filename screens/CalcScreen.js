@@ -72,7 +72,9 @@ function CalcScreen({ navigation }) {
   
   return (
     <SafeAreaView style={styles.treeTop}>
+        <Text style={{fontSize: 40, fontWeight: 'bold', color: "white", padding: 20, alignSelf: 'flex-start'}}>Calculator</Text>
        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        
       <TouchableOpacity style={dynamicStyles.settingsView} onPress={() => navigation.navigate("Settings")}>
         <Image
           source={require("../assets/setting.png")}
